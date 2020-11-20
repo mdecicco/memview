@@ -1,0 +1,38 @@
+{
+    "name": "memview",
+    "version": "1.0.0",
+    "description": "Tools for reverse engineering data structures of applications in realtime",
+    "main": "./back/entry.electron.js",
+    "scripts": {
+        "start": "npm run build && .\\node_modules\\electron\\dist\\electron.exe .\\back\\entry.electron.js",
+        "web": ".\\node_modules\\.bin\\webpack serve --config .\\back\\webpack.config.dev.js",
+        "dev": "npm run build && .\\node_modules\\electron\\dist\\electron.exe .\\back\\entry.dev.js",
+        "build": ".\\node_modules\\.bin\\webpack --config .\\back\\webpack.config.base.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/core": "^7.12.3",
+        "@babel/preset-env": "^7.12.1",
+        "@babel/preset-react": "^7.12.5",
+        "babel-loader": "^8.2.1",
+        "css-loader": "^5.0.1",
+        "electron": "^11.0.1",
+        "electron-reload": "^1.5.0",
+        "electron-reloader": "^1.0.1",
+        "html-webpack-plugin": "^4.5.0",
+        "sass-loader": "^10.1.0",
+        "style-loader": "^2.0.0",
+        "webpack": "^5.5.0",
+        "webpack-cli": "^4.2.0",
+        "webpack-merge": "^5.4.0"
+    },
+    "dependencies": {
+        "immutability-helper": "^3.1.1",
+        "memoryjs": "git+https://github.com/Luchanso/memoryjs.git",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1",
+        "react-redux": "^7.2.2",
+        "redux": "^4.0.5"
+    }
+}

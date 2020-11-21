@@ -1,6 +1,15 @@
 {
-  "presets": [
-    "@babel/preset-env",
-    "@babel/preset-react"
-  ]
+    "plugins": [
+        [
+            "module:babel-root-slash-import",
+            {
+                "rootPathSuffix": "front",
+                "rootPathPrefix": "~/"
+            }
+        ]
+    ],
+    "presets": [
+        "@babel/preset-env",
+        "@babel/preset-react"
+    ]
 }

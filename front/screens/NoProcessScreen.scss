@@ -1,0 +1,15 @@
+.no-process-screen {
+    .process-item {
+        display: flex;
+        flex-direction: column;
+        
+        span {
+            &:first-child {
+            }
+            &:last-child {
+                font-size: 8px;
+                color: rgba(255, 255, 255, 0.25);
+            }
+        }
+    }
+}

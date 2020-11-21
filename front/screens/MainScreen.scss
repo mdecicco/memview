@@ -1,0 +1,97 @@
+.hex-cont {
+    display: flex;
+    flex-direction: row;
+    background-color: rgba(0, 0, 0, 0.1);
+    flex-grow: 1;
+    overflow: hidden;
+    
+    .hex-lines {
+        display: flex;
+        flex-direction: column;
+        line-height: 16px;
+        height: 100%;
+        
+        .row-off {
+            display: inline-block;
+            font-family: monospace;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: rgba(247, 159, 0, 75);
+            height: 14px;
+            padding: 1px 3px 1px 3px;
+            margin-top: 1px;
+            margin-right: 3px;
+        }
+    }
+    
+    .hex-view {
+        flex-grow: 1;
+        flex-direction: row;
+        line-height: 16px;
+        height: 100%;
+        overflow: hidden;
+        
+        .byte {
+            display: inline-block;
+            font-family: monospace;
+            margin-right: 1px;
+            height: 14px;
+            max-width: 20px;
+            min-width: 20px;
+            padding: 1px 0px 1px 0px;
+            text-align: center;
+            white-space: nowrap;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            
+            &--col-end {
+                margin-right: 3px;
+            }
+            
+            &--row-end {
+                margin-right: 0px !important;
+            }
+            
+            &--empty {
+                color: rgba(255, 255, 255, 0.125);
+            }
+            
+            &--changed {
+                //animation: hex-view__byte-changed 250ms linear infinite;
+            }
+            
+            &--cur {
+                animation: hex-view__cursor-blink 1s cubic-bezier(0, 0.81, 0.24, 0.97);
+                border-bottom: 1px;
+                border-bottom-color: orange;
+                border-bottom-style: dashed;
+                margin-bottom: -1px;
+            }
+        }
+    }
+    
+    .hex-scroll {
+        background-color: rgba(0, 0, 0, 0.5);
+        margin-left: 5px;
+        
+        &__nub {
+            background-color: orange;
+            width: 10px;
+            height: 50px;
+            position: relative;
+        }
+    }
+}
+
+@keyframes hex-view__cursor-blink {
+    50% {
+        border-bottom-color: transparent;
+    }
+}
+@keyframes hex-view__byte-changed {
+    0% {
+        background-color: rgba(255, 0, 0, 0.3);
+    }
+    100% {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+}

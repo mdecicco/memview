@@ -27,7 +27,7 @@ module.exports = (env, options) => {
             ]
         },
         resolve: {
-            extensions: ['.js'],
+            extensions: ['.js', '.scss'],
         },
         plugins: [
             new html({ template: './back/app.html' })

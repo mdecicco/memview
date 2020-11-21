@@ -1,6 +1,7 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const initComm = require('./comm');
+const initActions = require('./actions');
 
 module.exports = (html) => {
     app.on('ready', () => {
@@ -16,6 +17,7 @@ module.exports = (html) => {
         w.toggleDevTools();
         w.loadURL(html);
         initComm(w);
+        initActions();
     });
 
     require('electron-reload')(__dirname, {

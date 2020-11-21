@@ -1,11 +1,11 @@
 import { createStore, combineReducers } from 'redux';
 import update from 'immutability-helper';
 
-import defaultState from './default';
+import defaultState from '/default';
 
-import { default as _Namespaces } from './namespaces';
-import { default as _Actions } from './actions';
-import addReducers from './reducers';
+import { default as _Namespaces } from '/namespaces';
+import { default as _Actions } from '/actions';
+import addReducers from '/reducers';
 
 class ReduxManager {
     constructor () {
@@ -102,7 +102,7 @@ class ReduxManager {
 
     initialize () {
         this.store = createStore(this.reduce.bind(this));
-        addReducers(this, Namespaces, Actions);
+        addReducers(this, _Namespaces, _Actions);
     }
 
     state () {

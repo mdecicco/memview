@@ -1,0 +1,43 @@
+.module-view {
+    .module-list {
+        max-width: 220px;
+
+        .module {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+
+            .name {
+                transition: color 125ms;
+            }
+
+            .range {
+                font-size: 12px;
+                font-family: monospace;
+                color: #ffa5005c;
+                margin-top: 2px;
+            }
+
+            &.main {
+                .name {
+                    font-style: italic;
+                }
+            }
+
+            &.selected {
+                .name {
+                    color: orange;
+                }
+            }
+        }
+    }
+
+    &__info {
+        flex-grow: 1;
+        padding: 5px;
+        h2 {
+            color: white;
+            margin-left: 20px;
+        }
+    }
+}

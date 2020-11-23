@@ -32,6 +32,7 @@
         "immutability-helper": "^3.1.1",
         "memoryjs": "git+https://github.com/Luchanso/memoryjs.git",
         "react": "^17.0.1",
+        "react-contextmenu": "^2.14.0",
         "react-dom": "^17.0.1",
         "react-redux": "^7.2.2",
         "redux": "^4.0.5"

@@ -4,17 +4,17 @@ body {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    
+
     #root {
         width: 100%;
         height: 100%;
     }
-    
+
     * {
         font-family: sans-serif;
         user-select: none;
     }
-    
+
     main {
         width: 100%;
         height: 100%;
@@ -22,7 +22,7 @@ body {
         display: flex;
         flex-direction: column;
     }
-    
+
     button {
         background-color: transparent;
         color: white;
@@ -33,23 +33,69 @@ body {
         transition: background-color 125ms;
         border-radius: 3px;
         background-color: rgba(0, 0, 0, 0.1);
-        
+
         &:hover {
             background-color: rgb(50, 50, 50);
         }
     }
-    
-    .page {
+
+    .screen {
         flex-grow: 1;
         display: flex;
         flex-direction: column;
         overflow: hidden;
         padding: 5px;
-        
+
         h1 {
             color: white;
             margin-bottom: 12px;
             margin-top: 0px;
+        }
+
+        .screen-view {
+            display: flex;
+            flex-direction: row;
+            background-color: rgba(0, 0, 0, 0.1);
+            flex-grow: 1;
+            overflow: hidden;
+        }
+    }
+
+    .info-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        span {
+            &:first-child {
+                color: orange;
+            }
+            &:last-child {
+                color: white;
+                user-select: text;
+            }
+        }
+    }
+}
+
+.react-contextmenu {
+    background-color: #232323;
+    padding: 5px;
+    border-radius: 5px;
+
+    .react-contextmenu-item {
+        color: white;
+        padding: 5px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 125ms;
+
+        &:not(:last-child) {
+            margin-bottom: 5px;
+        }
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.125);
         }
     }
 }

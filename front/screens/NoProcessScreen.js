@@ -16,11 +16,11 @@ class NoProcessScreen extends Component {
     componentDidMount () {
         Comm.send('process.list');
     }
-    
+
     refresh () {
         Comm.send('process.list');
     }
-    
+
     onSelect (item) {
         console.log(item.info);
         redux.dispatch({ type: Actions.APP_SELECT_PROCESS, processId: item.id });
@@ -28,9 +28,9 @@ class NoProcessScreen extends Component {
 
     render () {
         const { processes } = this.props;
-        
+
         return (
-            <div className='page no-process-screen'>
+            <div className='screen no-process-screen'>
                 <h1>Select Process</h1>
                 <SearchList
                     items={processes}

@@ -14,11 +14,10 @@ export default class MemoryInterface {
             end: 0
         };
     }
-    
+
     setBufferRange (start, end) {
         this.lastRange = this.range;
         this.lastBuffer = this.buffer;
-        
         this.range = { start, end };
         this.buffer = ipcRenderer.sendSync('action', {
             type: 'memory.get',
@@ -28,7 +27,7 @@ export default class MemoryInterface {
             }
         });
     }
-    
+
     at (addr) {
         if (!this.buffer || addr < this.range.start || addr >= this.range.end) return { val: null, changed: false };
         const val = this.buffer[addr - this.range.start];

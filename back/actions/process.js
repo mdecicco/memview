@@ -10,13 +10,15 @@ module.exports = function () {
             }
         });
     });
-    
+
     state.addReducer('process.open', (processId, comm) => {
         console.log(`open`, processId);
         memory.openProcess(parseInt(processId, 10), (error, process) => {
             if (error) {
                 comm.send('process.error', error);
             } else {
+                process.regions = memory.getRegions(process.handle);
+                process.modules = memory.getModules(processId);
                 comm.send('process.opened', process);
             }
         });

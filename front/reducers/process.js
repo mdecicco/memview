@@ -7,7 +7,8 @@ export default function addReducers(redux, Namespaces, Actions) {
         setTimeout(() => {
             redux.dispatch({
                 type: Actions.APP_PROCESS_OPENED,
-                processId: action.process.th32ProcessID
+                processId: action.process.th32ProcessID,
+                baseAddress: action.process.modBaseAddr
             });
         }, 1);
         return update(state, {

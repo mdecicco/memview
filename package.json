@@ -6,7 +6,8 @@
     "scripts": {
         "start": ".\\node_modules\\electron\\dist\\electron.exe .\\back\\entry.electron.js",
         "build": ".\\node_modules\\.bin\\webpack --config .\\back\\webpack.config.base.js",
-        "watch": ".\\node_modules\\.bin\\webpack --watch --config .\\back\\webpack.config.base.js"
+        "watch": ".\\node_modules\\.bin\\webpack --watch --config .\\back\\webpack.config.base.js",
+        "postinstall": "npx patch-package"
     },
     "author": "",
     "license": "ISC",

@@ -1,0 +1,82 @@
+diff --git a/node_modules/memoryjs/build/Release/memoryjs.lib b/node_modules/memoryjs/build/Release/memoryjs.lib
+index c2b281f..29c68a7 100644
+Binary files a/node_modules/memoryjs/build/Release/memoryjs.lib and b/node_modules/memoryjs/build/Release/memoryjs.lib differ
+diff --git a/node_modules/memoryjs/lib/memory.h b/node_modules/memoryjs/lib/memory.h
+index 23bd943..cb20e1a 100644
+--- a/node_modules/memoryjs/lib/memory.h
++++ b/node_modules/memoryjs/lib/memory.h
+@@ -7,6 +7,12 @@
+ #include <windows.h>
+ #include <TlHelp32.h>
+ 
++struct read_buffer_result {
++    char* buffer;
++    size_t start;
++    size_t end;
++};
++
+ class memory {
+ public:
+   memory();
+@@ -20,10 +26,29 @@ public:
+     return cRead;
+   }
+ 
+-  char* readBuffer(HANDLE hProcess, DWORD64 address, SIZE_T size) {
+-    char* buffer = new char[size];
+-    ReadProcessMemory(hProcess, (LPVOID)address, buffer, size, NULL);
+-    return buffer;
++  read_buffer_result readBuffer(HANDLE hProcess, DWORD64 address, SIZE_T size) {
++    read_buffer_result out;
++    out.buffer = new char[size];
++    out.start = address;
++    out.end = address + size;
++    bool success = ReadProcessMemory(hProcess, (LPVOID)out.start, out.buffer, out.end - out.start, NULL);
++    if (!success) {
++        // read memory one byte at a time, storing the range of successfully read bytes
++        bool foundStart = false;
++        for (size_t i = out.start, b = 0;i < out.end;i++,b++) {
++            success = ReadProcessMemory(hProcess, (LPVOID)i, out.buffer + b, 1, NULL);
++            if (success && !foundStart) {
++                out.start = i;
++                foundStart = true;
++            } else if (!success && foundStart) {
++                out.end = i;
++                break;
++            }
++        }
++        if (!foundStart) out.start = out.end = 0;
++    }
++    
++    return out;
+   }
+ 
+   char readChar(HANDLE hProcess, DWORD64 address) {
+diff --git a/node_modules/memoryjs/lib/memoryjs.cc b/node_modules/memoryjs/lib/memoryjs.cc
+index e9ee869..7ce9092 100644
+--- a/node_modules/memoryjs/lib/memoryjs.cc
++++ b/node_modules/memoryjs/lib/memoryjs.cc
+@@ -494,16 +494,19 @@ Napi::Value readBuffer(const Napi::CallbackInfo& args) {
+   HANDLE handle = (HANDLE)args[0].As<Napi::Number>().Int64Value();
+   DWORD64 address = args[1].As<Napi::Number>().Int64Value();
+   SIZE_T size = args[2].As<Napi::Number>().Int64Value();
+-  char* data = Memory.readBuffer(handle, address, size);
++  read_buffer_result result = Memory.readBuffer(handle, address, size);
+ 
+-  Napi::Buffer<char> buffer = Napi::Buffer<char>::New(env, data, size);
++  Napi::Object out = Napi::Object::New(env);
++  out.Set(Napi::String::New(env, "buffer"), Napi::Buffer<char>::New(env, result.buffer, size));
++  out.Set(Napi::String::New(env, "start"), Napi::Value::From(env, (uintptr_t)result.start));
++  out.Set(Napi::String::New(env, "end"), Napi::Value::From(env, (uintptr_t)result.end));
+ 
+   if (args.Length() == 4) {
+     Napi::Function callback = args[3].As<Napi::Function>();
+-    callback.Call(env.Global(), { Napi::String::New(env, ""), buffer });
++    callback.Call(env.Global(), { Napi::String::New(env, ""), out });
+     return env.Null();
+   } else {
+-    return buffer;
++    return out;
+   }
+ }
+ 

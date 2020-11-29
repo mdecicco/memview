@@ -3,6 +3,7 @@ export default {
         processId: null,
         processes: [],
         addressMode: 'hex',
+        goToAddress: null,
         tabIdx: 0
     },
     process: {

@@ -11,9 +11,6 @@ export function formatAddress (addr, options) {
         const prefix = options && options.prefix !== undefined ? options.prefix : '0x';
         const sign = options && options.sign !== undefined ? options.sign : true;
         const short = options && options.short !== undefined ? options.short : false;
-        if (options && options.fill && !options.mask) {
-            console.warn('Passed options.fill to formatAddress but not options.mask');
-        }
         if (sign) {
             const addrSign = addr < 0 ? '-' : '+';
             if (short) return addrSign + prefix + Math.abs(addr).toString(16).toUpperCase();

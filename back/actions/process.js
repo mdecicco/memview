@@ -19,6 +19,10 @@ module.exports = function () {
             } else {
                 process.regions = memory.getRegions(process.handle);
                 process.modules = memory.getModules(processId);
+                process.modules.forEach(m => {
+                    // m.modBaseAddr -= process.modBaseAddr;
+                    // m.hModule -= process.modBaseAddr;
+                });
                 comm.send('process.opened', process);
             }
         });

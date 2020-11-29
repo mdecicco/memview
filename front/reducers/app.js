@@ -8,7 +8,6 @@ export default function addReducers(redux, Namespaces, Actions) {
     });
 
     redux.addReducer(Namespaces.APP, Actions.APP_RECEIVED_PROCESSES, (state, action) => {
-        console.log(action.processes);
         return update(state, {
             processes: { $set: action.processes }
         });
@@ -16,13 +15,21 @@ export default function addReducers(redux, Namespaces, Actions) {
 
     redux.addReducer(Namespaces.APP, Actions.APP_PROCESS_OPENED, (state, action) => {
         return update(state, {
-            processId: { $set: action.processId }
+            processId: { $set: action.processId },
+            goToAddress: { $set: action.baseAddress }
         });
     });
 
     redux.addReducer(Namespaces.APP, Actions.APP_SELECT_TAB, (state, action) => {
         return update(state, {
             tabIdx: { $set: action.idx }
+        });
+    });
+    
+    redux.addReducer(Namespaces.APP, Actions.APP_GO_TO_MEMORY, (state, action) => {
+        return update(state, {
+            tabIdx: { $set: 2 },
+            goToAddress: { $set: action.address }
         });
     });
 

@@ -12,6 +12,7 @@
             padding: 1px 3px 1px 3px;
             margin-right: 3px;
             vertical-align: top;
+            width: 116px;
         }
     }
 
@@ -19,6 +20,7 @@
         flex-grow: 1;
         line-height: 16px;
         height: 100%;
+        min-width: 90px;
         overflow: hidden;
 
         .byte {
@@ -33,6 +35,7 @@
             white-space: nowrap;
             background-color: rgba(255, 255, 255, 0.1);
             color: rgba(255, 255, 255, 0.5);
+            transition: opacity 125ms;
 
             &--col-end {
                 margin-right: 3px;
@@ -51,11 +54,15 @@
             }
 
             &--cur {
-                animation: hex-view__cursor-blink 1s cubic-bezier(0, 0.81, 0.24, 0.97);
+                animation: hex-view__cursor-blink 1s cubic-bezier(0, 0.81, 0.24, 0.97) infinite !important;
                 border-bottom: 1px;
                 border-bottom-color: orange;
                 border-bottom-style: dashed;
                 margin-bottom: -1px;
+            }
+            
+            &:hover {
+                opacity: 0.5;
             }
         }
     }
@@ -64,7 +71,7 @@
         line-height: 16px;
         overflow: hidden;
 
-        span {
+        .byte {
             display: inline-block;
             font-family: monospace;
             padding: 1px 0px 1px 0px;
@@ -75,6 +82,22 @@
             vertical-align: top;
             background-color: rgba(255, 255, 255, 0.1);
             color: rgba(255, 255, 255, 0.5);
+
+            &--empty {
+                color: rgba(255, 255, 255, 0.125);
+            }
+
+            &--cur {
+                animation: hex-view__cursor-blink 1s cubic-bezier(0, 0.81, 0.24, 0.97) infinite !important;
+                border-bottom: 1px;
+                border-bottom-color: orange;
+                border-bottom-style: dashed;
+                margin-bottom: -1px;
+            }
+            
+            &:hover {
+                opacity: 0.5;
+            }
         }
     }
 
@@ -88,6 +111,11 @@
             height: 50px;
             position: relative;
         }
+    }
+
+    .react-contextmenu-wrapper {
+        width: 100%;
+        height: 100%;
     }
 }
 
